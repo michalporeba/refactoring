@@ -19,7 +19,7 @@ namespace Step01
             _rentals.Add(rental);
         }
 
-        public string Statement()
+        public string GetStatement()
         {
             double totalAmount = 0;
             int frequentRenterPoints = 0;
@@ -53,11 +53,11 @@ namespace Step01
                     frequentRenterPoints++;
                 
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + this.ToString() + Environment.NewLine;
+                result += "\t" + rental.Movie.Title + "\t£" + thisAmount.ToString("0.00") + Environment.NewLine;
                 totalAmount += thisAmount;
             }
 
-            result += "Amount owed is " + totalAmount + Environment.NewLine;
+            result += "Amount owed is £" + totalAmount.ToString("0.00") + Environment.NewLine;
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             
             return result;

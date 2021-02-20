@@ -1,4 +1,6 @@
-﻿namespace FirstRun
+﻿using System;
+
+namespace FirstRun
 {
     public class Movie
     {
@@ -9,34 +11,13 @@
             NewRelease
         }
 
+        private readonly Price _price;
         public string Title { get; private set; }
-
-        private Price _price = new RegularPrice();
-
-        public PriceCodes PriceCode
-        {
-            get => _price.GetPriceCode();
-            private set
-            {
-                switch (value)
-                {
-                    case PriceCodes.Regular: 
-                        _price = new RegularPrice();
-                        break;
-                    case PriceCodes.NewRelease:
-                        _price = new NewReleasePrice();
-                        break; 
-                    case PriceCodes.Childrens: 
-                        _price = new ChildrensPrice();
-                        break;
-                }
-            }
-        }
-
+        
         public Movie(string title, PriceCodes priceCode)
         {
             this.Title = title;
-            this.PriceCode = priceCode;
+             _price = GetPrice(priceCode);
         }
 
         public double GetCharge(int daysRented)
@@ -44,5 +25,18 @@
 
         public int GetFrequentRenterPoints(int daysRented)
             => _price.GetFrequentRenterPoints(daysRented);
+        
+        private Price GetPrice(PriceCodes priceCode)
+        {
+            switch (priceCode)
+            {
+                case PriceCodes.Regular: return new RegularPrice();
+                case PriceCodes.NewRelease: return new NewReleasePrice();
+                case PriceCodes.Childrens: return new ChildrensPrice();
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(priceCode), priceCode, null);
+            }
+        }
+
     }
 }

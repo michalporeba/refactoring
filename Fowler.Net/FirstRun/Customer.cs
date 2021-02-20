@@ -6,7 +6,7 @@ namespace FirstRun
 {
     public class Customer
     {
-        private List<Rental> _rentals = new List<Rental>();
+        private readonly List<Rental> _rentals = new List<Rental>();
         
         public string Name { get; private set; }
 
@@ -20,23 +20,23 @@ namespace FirstRun
             _rentals.Add(rental);
         }
 
-        public string Statement()
+        public string GetStatement()
         {
             var result = "Rental Record for " + Name + Environment.NewLine;
 
             foreach (var rental in _rentals)
             {
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + rental.GetCharge() + Environment.NewLine;
+                result += "\t" + rental.Movie.Title + "\t" + rental.GetCharge().ToString("£0.00") + Environment.NewLine;
             }
 
-            result += "Amount owed is " + TotalCharge() + Environment.NewLine;
+            result += "Amount owed is " + TotalCharge().ToString("£0.00") + Environment.NewLine;
             result += "You earned " + FrequentRenterPoints() + " frequent renter points";
 
             return result;
         }
 
-        public string htmlStatement()
+        public string GetHtmlStatement()
         {
             var result = "<h1>Rentals for <em>" + Name + "</em></h1><p>" + Environment.NewLine;
             foreach (var rental in _rentals)
