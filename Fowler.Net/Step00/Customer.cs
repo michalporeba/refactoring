@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Step01
+namespace Step00
 {
     public class Customer
     {
         private List<Rental> _rentals = new List<Rental>();
-        
-        public string Name { get; private set; }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+        }
 
         public Customer(string name)
         {
-            this.Name = name;
+            _name = name;
         }
 
         public void AddRental(Rental rental)
@@ -19,7 +23,7 @@ namespace Step01
             _rentals.Add(rental);
         }
 
-        public string Statement()
+        public string GetStatement()
         {
             double totalAmount = 0;
             int frequentRenterPoints = 0;
@@ -38,7 +42,7 @@ namespace Step01
                     case Movie.PriceCodes.NewRelease:
                         thisAmount += rental.DaysRented * 3;
                         break;
-                    case Movie.PriceCodes.Childrens:
+                    case Movie.PriceCodes.Children:
                         thisAmount += 1.5;
                         if (rental.DaysRented > 3)
                             thisAmount += (rental.DaysRented - 3) * 1.5;
@@ -53,11 +57,11 @@ namespace Step01
                     frequentRenterPoints++;
                 
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + this.ToString() + Environment.NewLine;
+                result += "\t" + rental.Movie.Title + "\t£" + thisAmount.ToString("0.00") + Environment.NewLine;
                 totalAmount += thisAmount;
             }
 
-            result += "Amount owed is " + totalAmount + Environment.NewLine;
+            result += "Amount owed is £" + totalAmount.ToString("0.00") + Environment.NewLine;
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             
             return result;

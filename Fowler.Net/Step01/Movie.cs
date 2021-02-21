@@ -10,16 +10,10 @@
         }
 
         private string _title;
-        public string Title
-        {
-            get { return _title; }
-        }
+        public string Title => _title;
 
         private PriceCodes _priceCode;
-        public PriceCodes PriceCode
-        {
-            get { return _priceCode; }
-        }
+        public PriceCodes PriceCode => _priceCode;
 
         public Movie(string title, PriceCodes priceCode)
         {

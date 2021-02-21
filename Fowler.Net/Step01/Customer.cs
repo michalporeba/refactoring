@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Step01
 {
     public class Customer
     {
-        private List<Rental> _rentals = new List<Rental>();
+        private readonly List<Rental> _rentals = new List<Rental>();
 
         private string _name;
         public string Name
@@ -25,27 +24,27 @@ namespace Step01
 
         public string GetStatement()
         {
-            double totalAmount = 0;
-            int frequentRenterPoints = 0;
-            string result = "Rental Record for " + Name + Environment.NewLine;
+            var totalAmount = 0m;
+            var frequentRenterPoints = 0;
+            var result = $"Rental Record for {Name}\n";
 
             foreach(var rental in _rentals)
             {
-                double thisAmount = 0;
+                var thisAmount = 0m;
                 switch (rental.Movie.PriceCode)
                 {
                     case Movie.PriceCodes.Regular:
                         thisAmount += 2;
                         if (rental.DaysRented > 2)
-                            thisAmount += (rental.DaysRented - 2) * 1.5;
+                            thisAmount += (rental.DaysRented - 2) * 1.5m;
                         break;
                     case Movie.PriceCodes.NewRelease:
                         thisAmount += rental.DaysRented * 3;
                         break;
                     case Movie.PriceCodes.Children:
-                        thisAmount += 1.5;
+                        thisAmount += 1.5m;
                         if (rental.DaysRented > 3)
-                            thisAmount += (rental.DaysRented - 3) * 1.5;
+                            thisAmount += (rental.DaysRented - 3) * 1.5m;
                         break;
                 }
                 
@@ -57,12 +56,12 @@ namespace Step01
                     frequentRenterPoints++;
                 
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t£" + thisAmount.ToString("0.00") + Environment.NewLine;
+                result += $"\t{rental.Movie.Title}\t{thisAmount:£0.00}\n";
                 totalAmount += thisAmount;
             }
 
-            result += "Amount owed is £" + totalAmount.ToString("0.00") + Environment.NewLine;
-            result += "You earned " + frequentRenterPoints + " frequent renter points";
+            result += $"Amount owed is {totalAmount:£0.00}\n";
+            result += $"You earned {frequentRenterPoints} frequent renter points";
             
             return result;
         }

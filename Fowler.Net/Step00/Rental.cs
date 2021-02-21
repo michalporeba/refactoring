@@ -1,14 +1,23 @@
-﻿namespace Step01
+﻿namespace Step00
 {
     public class Rental
     {
-        public Movie Movie { get; private set; }
-        public int DaysRented { get; private set; }
+        private Movie _movie;
+        public Movie Movie
+        {
+            get { return _movie; }
+        }
+
+        private int _daysRented;
+        public int DaysRented
+        {
+            get { return _daysRented; }
+        }
 
         public Rental(Movie movie, int daysRented)
         {
-            this.Movie = movie;
-            this.DaysRented = daysRented;
+            _movie = movie;
+            _daysRented = daysRented;
         }
     }
 }
