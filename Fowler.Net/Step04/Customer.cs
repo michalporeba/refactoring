@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace Step03
+namespace Step04
 {
     public class Customer
     {
@@ -19,25 +20,25 @@ namespace Step03
 
         public string GetStatement()
         {
-            var totalAmount = 0m;
-            var frequentRenterPoints = 0;
             var result = $"Rental Record for {Name}\n";
 
             foreach(var rental in _rentals)
             {
-                var thisAmount = rental.GetCharge();
-                frequentRenterPoints += rental.GetFrequentRenterPoints();
-
                 // show figures for this rental
-                result += $"\t{rental.Movie.Title}\t{thisAmount:£0.00}\n";
-                totalAmount += thisAmount;
+                result += $"\t{rental.Movie.Title}\t{rental.GetCharge():£0.00}\n";
             }
 
             // add footer lines
-            result += $"Amount owed is {totalAmount:£0.00}\n";
-            result += $"You earned {frequentRenterPoints} frequent renter points";
+            result += $"Amount owed is {GetTotalCharge():£0.00}\n";
+            result += $"You earned {GetFrequentRenterPoints()} frequent renter points";
             
             return result;
         }
+
+        private int GetFrequentRenterPoints()
+            => _rentals.Sum(x => x.GetFrequentRenterPoints());
+
+        private decimal GetTotalCharge()
+            => _rentals.Sum(x => x.GetCharge());
     }
 }

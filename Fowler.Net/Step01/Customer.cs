@@ -55,6 +55,7 @@ namespace Step01
                 totalAmount += thisAmount;
             }
 
+            // add footer lines
             result += $"Amount owed is {totalAmount:£0.00}\n";
             result += $"You earned {frequentRenterPoints} frequent renter points";
             

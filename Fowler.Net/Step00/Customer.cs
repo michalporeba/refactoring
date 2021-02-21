@@ -61,6 +61,7 @@ namespace Step00
                 totalAmount += thisAmount;
             }
 
+            // add footer lines
             result += "Amount owed is £" + totalAmount.ToString("0.00") + Environment.NewLine;
             result += "You earned " + frequentRenterPoints + " frequent renter points";
             
