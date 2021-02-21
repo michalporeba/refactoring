@@ -32,7 +32,7 @@ namespace Tests
             public TestCustomerA()
                 : base("Arthur Bowen")
             {
-                AddRental(new Rental(new Movie("Octonauts", Movie.PriceCodes.Childrens), 1));
+                AddRental(new Rental(new Movie("Octonauts", Movie.PriceCodes.Children), 1));
                 AddRental(new Rental(new Movie("Twin Town", Movie.PriceCodes.Regular), 3));
                 AddRental(new Rental(new Movie("New Thing", Movie.PriceCodes.NewRelease), 7));
             }
@@ -43,7 +43,7 @@ namespace Tests
             public TestCustomerB()
                 : base("Ceri Davies")
             {
-                AddRental(new Rental(new Movie("Sali Mali", Movie.PriceCodes.Childrens), 5));
+                AddRental(new Rental(new Movie("Sali Mali", Movie.PriceCodes.Children), 5));
                 AddRental(new Rental(new Movie("Patagonia", Movie.PriceCodes.Regular), 1));
             }
         }

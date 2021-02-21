@@ -4,18 +4,27 @@
     {
         public enum PriceCodes
         {
-            Childrens,
+            Children,
             Regular,
             NewRelease
         }
-        
-        public string Title { get; private set; }
-        public PriceCodes PriceCode { get; set; }
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+        }
+
+        private PriceCodes _priceCode;
+        public PriceCodes PriceCode
+        {
+            get { return _priceCode; }
+        }
 
         public Movie(string title, PriceCodes priceCode)
         {
-            this.Title = title;
-            this.PriceCode = priceCode;
+            _title = title;
+            _priceCode = priceCode;
         }
     }
 }

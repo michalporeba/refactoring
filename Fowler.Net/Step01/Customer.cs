@@ -6,12 +6,16 @@ namespace Step01
     public class Customer
     {
         private List<Rental> _rentals = new List<Rental>();
-        
-        public string Name { get; private set; }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+        }
 
         public Customer(string name)
         {
-            this.Name = name;
+            _name = name;
         }
 
         public void AddRental(Rental rental)
@@ -38,7 +42,7 @@ namespace Step01
                     case Movie.PriceCodes.NewRelease:
                         thisAmount += rental.DaysRented * 3;
                         break;
-                    case Movie.PriceCodes.Childrens:
+                    case Movie.PriceCodes.Children:
                         thisAmount += 1.5;
                         if (rental.DaysRented > 3)
                             thisAmount += (rental.DaysRented - 3) * 1.5;
