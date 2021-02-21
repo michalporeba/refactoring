@@ -1,6 +1,6 @@
 using System;
 using NUnit.Framework;
-using Step02;
+using Step03;
 
 namespace Tests
 {
