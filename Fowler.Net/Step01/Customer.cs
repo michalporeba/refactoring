@@ -7,10 +7,7 @@ namespace Step01
         private readonly List<Rental> _rentals = new List<Rental>();
 
         private string _name;
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name =>  _name;
 
         public Customer(string name)
         {
@@ -18,9 +15,7 @@ namespace Step01
         }
 
         public void AddRental(Rental rental)
-        {
-            _rentals.Add(rental);
-        }
+            => _rentals.Add(rental);
 
         public string GetStatement()
         {
