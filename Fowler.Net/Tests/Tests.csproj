@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Step02\Step02.csproj" />
     <ProjectReference Include="..\Step03\Step03.csproj" />
     <ProjectReference Include="..\Step04\Step04.csproj" />
+    <ProjectReference Include="..\Step05\Step05.csproj" />
   </ItemGroup>
 
 </Project>
