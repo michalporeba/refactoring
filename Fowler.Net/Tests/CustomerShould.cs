@@ -1,6 +1,6 @@
 using System;
 using NUnit.Framework;
-using Step08;
+using Step09;
 
 namespace Tests
 {
@@ -42,6 +42,16 @@ namespace Tests
             var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedHtml;
             Assert.That(customer?.GetHtmlStatement(), Is.EqualTo(expected));
         }
+        
+        
+        [TestCase(typeof(TestCustomerB))]
+        public void ReturnStatementWithTextStrategy(Type customerType)
+        {
+            var customer = (Customer)Activator.CreateInstance(customerType);
+            var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedString;
+            Assert.That(customer?.GetStatement(new StringStatementFormatter()), Is.EqualTo(expected));
+        }
+
 
         private class TestCustomerA : Customer
         {
