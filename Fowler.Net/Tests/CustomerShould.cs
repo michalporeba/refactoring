@@ -42,16 +42,6 @@ namespace Tests
             var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedHtml;
             Assert.That(customer?.GetHtmlStatement(), Is.EqualTo(expected));
         }
-        
-        
-        [TestCase(typeof(TestCustomerB))]
-        public void ReturnStatementWithTextStrategy(Type customerType)
-        {
-            var customer = (Customer)Activator.CreateInstance(customerType);
-            var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedString;
-            Assert.That(customer?.GetStatement(new StringStatementFormatter()), Is.EqualTo(expected));
-        }
-
 
         private class TestCustomerA : Customer
         {
@@ -73,7 +63,7 @@ namespace Tests
         private class TestCustomerB : Customer, ITestCustomerWithOutcome
         {
             public string ExpectedString 
-                => "Rental Record for Ceri Davies\n\tSali Mali\t£4.50\n\tPatagonia\t£2.00\nAmount owed is £6.50\n\nYou earned 2 frequent renter points\n";
+                => "Rental Record for Ceri Davies\n\tSali Mali\t£4.50\n\tPatagonia\t£2.00\nAmount owed is £6.50\nYou earned 2 frequent renter points\n";
             public string ExpectedHtml 
                 => "<p>Rental Record for Ceri Davies</p><p>Sali Mali for £4.50</p><p>Patagonia for £2.00</p><p>Amount owed is £6.50</p><p>You earned 2 frequent renter points</p>";
             

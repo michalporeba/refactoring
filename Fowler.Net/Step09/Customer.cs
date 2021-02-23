@@ -19,16 +19,13 @@ namespace Step09
             => _rentals.Add(rental);
 
         public string GetStatement()
-            => GetStatement(new StringStatementFormatter());
-        
-        public string GetStatement(StatementFormatter formatter)
         {
             var sb = new StringBuilder($"Rental Record for {Name}\n");
 
-            _rentals.ForEach(rental => sb.AppendLine($"\t{rental.Movie.Title}\t{rental.GetCharge():£0.00}"));
+            _rentals.ForEach(rental => sb.Append($"\t{rental.Movie.Title}\t{rental.GetCharge():£0.00}\n"));
 
-            sb.AppendLine($"Amount owed is {GetTotalCharge():£0.00}\n");
-            sb.AppendLine($"You earned {GetFrequentRenterPoints()} frequent renter points");
+            sb.Append($"Amount owed is {GetTotalCharge():£0.00}\n");
+            sb.Append($"You earned {GetFrequentRenterPoints()} frequent renter points\n");
             
             return sb.ToString();
         }
