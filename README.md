@@ -34,7 +34,7 @@ First a quick modernisation, some variable types, some readonly properties and s
 
 At this point it would be possible, as in the original example, to easily createa new method to generate HTML statement.
 
-```
+```c#
 public string GetHtmlStatement()
 {
 	var result = "<h1>Rentals for <em>" + Name + "</em></h1><p>" + Environment.NewLine;
@@ -75,6 +75,10 @@ The test coverage drops down a little, showing that we are clearly exposing some
 
 Finally, we split the Price file.
 
+### Step 08 - Final tidy up
+
+Auto properties, string builder, `_rentals.ForEach()` instaed of a bigger loop
+
 ## The end of the original example. 
 
 The original example ends here, we can simply add the GetHtmlStatement method. 
@@ -82,6 +86,22 @@ The original example ends here, we can simply add the GetHtmlStatement method.
 The code looks more complex already, but how does our future work with it looks? 
 
 How difficult it would be? What would happen if we had to add GetJsonStatment, GetXmlStatement methods to it? What if we had to add more types of movies, or perhaps modify rules for a specific type? How would it look before? 
+
+```c#
+public string GetHtmlStatement()
+{
+	var sb = new StringBuilder($"<p>Rental Record for {Name}\n</p>");
+
+	_rentals.ForEach(rental => sb.AppendLine($"<p>{rental.Movie.Title} for {rental.GetCharge():£0.00}</p>"));
+
+	sb.AppendLine($"<p>Amount owed is {GetTotalCharge():£0.00}</p>");
+	sb.AppendLine($"<p>You earned {GetFrequentRenterPoints()} frequent renter points</p>");
+	
+	return sb.ToString();
+}
+```
+
+This is good if we consider changes to pricing model, but not for different outputs. 
 
 
 ## Quotes
