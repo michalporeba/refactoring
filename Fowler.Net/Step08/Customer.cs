@@ -32,12 +32,12 @@ namespace Step08
         
         public string GetHtmlStatement()
         {
-            var sb = new StringBuilder($"<p>Rental Record for {Name}\n</p>");
+            var sb = new StringBuilder($"<p>Rental Record for {Name}</p>");
 
-            _rentals.ForEach(rental => sb.AppendLine($"<p>{rental.Movie.Title} for {rental.GetCharge():£0.00}</p>"));
+            _rentals.ForEach(rental => sb.Append($"<p>{rental.Movie.Title} for {rental.GetCharge():£0.00}</p>"));
 
-            sb.AppendLine($"<p>Amount owed is {GetTotalCharge():£0.00}</p>");
-            sb.AppendLine($"<p>You earned {GetFrequentRenterPoints()} frequent renter points</p>");
+            sb.Append($"<p>Amount owed is {GetTotalCharge():£0.00}</p>");
+            sb.Append($"<p>You earned {GetFrequentRenterPoints()} frequent renter points</p>");
             
             return sb.ToString();
         }

@@ -26,7 +26,23 @@ namespace Tests
             Assert.That(statement, Contains.Substring(title), "Title should be included in the statement");
             Assert.That(statement, Contains.Substring(charge.ToString("£0.00")), "Price should be included");
         }
+
+        [TestCase(typeof(TestCustomerB))]
+        public void HaveExactOutputString(Type customerType)
+        {
+            var customer = (Customer)Activator.CreateInstance(customerType);
+            var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedString;
+            Assert.That(customer?.GetStatement(), Is.EqualTo(expected));
+        }
         
+        [TestCase(typeof(TestCustomerB))]
+        public void HaveExactOutputHtml(Type customerType)
+        {
+            var customer = (Customer)Activator.CreateInstance(customerType);
+            var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedHtml;
+            Assert.That(customer?.GetHtmlStatement(), Is.EqualTo(expected));
+        }
+
         private class TestCustomerA : Customer
         {
             public TestCustomerA()
@@ -37,9 +53,20 @@ namespace Tests
                 AddRental(new Rental(new Movie("New Thing", Movie.PriceCodes.NewRelease), 7));
             }
         }
-        
-        private class TestCustomerB : Customer
+
+        private interface ITestCustomerWithOutcome
         {
+            string ExpectedString { get; }
+            string ExpectedHtml { get; }
+        }
+        
+        private class TestCustomerB : Customer, ITestCustomerWithOutcome
+        {
+            public string ExpectedString 
+                => "Rental Record for Ceri Davies\n\tSali Mali\t£4.50\n\tPatagonia\t£2.00\nAmount owed is £6.50\n\nYou earned 2 frequent renter points\n";
+            public string ExpectedHtml 
+                => "<p>Rental Record for Ceri Davies</p><p>Sali Mali for £4.50</p><p>Patagonia for £2.00</p><p>Amount owed is £6.50</p><p>You earned 2 frequent renter points</p>";
+            
             public TestCustomerB()
                 : base("Ceri Davies")
             {
