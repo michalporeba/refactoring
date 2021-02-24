@@ -7,12 +7,11 @@ namespace FirstRun
     public class Customer
     {
         private readonly List<Rental> _rentals = new List<Rental>();
-        
-        public string Name { get; private set; }
+        private string _name;
 
         public Customer(string name)
         {
-            this.Name = name;
+            _name = name;
         }
 
         public void AddRental(Rental rental)
@@ -22,23 +21,24 @@ namespace FirstRun
 
         public string GetStatement()
         {
-            var result = "Rental Record for " + Name + Environment.NewLine;
+            var builder = new StringStatementBuilder();
+            builder.AddName(_name);
+            builder.AddTotalCharge(TotalCharge());
+            _rentals.ForEach(rental => builder.AddRental(rental));
 
             foreach (var rental in _rentals)
             {
                 // show figures for this rental
-                result += "\t" + rental.Movie.Title + "\t" + rental.GetCharge().ToString("£0.00") + Environment.NewLine;
+                //result += "\t" + rental.Movie.Title + "\t" + rental.GetCharge().ToString("£0.00") + Environment.NewLine;
             }
 
-            result += "Amount owed is " + TotalCharge().ToString("£0.00") + Environment.NewLine;
-            result += "You earned " + FrequentRenterPoints() + " frequent renter points";
 
-            return result;
+            return builder.ToStatement();
         }
 
         public string GetHtmlStatement()
         {
-            var result = "<h1>Rentals for <em>" + Name + "</em></h1><p>" + Environment.NewLine;
+            var result = "<h1>Rentals for <em>" + _name + "</em></h1><p>" + Environment.NewLine;
             foreach (var rental in _rentals)
             {
                 result += rental.Movie.Title + ": " + rental.GetCharge() + "<br>" + Environment.NewLine;
@@ -50,10 +50,10 @@ namespace FirstRun
             return result;
         }
         
-        private double TotalCharge()
+        private decimal TotalCharge()
             => _rentals.Sum(x => x.GetCharge());
 
-        private double FrequentRenterPoints()
+        private int FrequentRenterPoints()
             => _rentals.Sum(x => x.GetFrequentRenterPoints());
     }
 }

@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FirstRun\FirstRun.csproj" />
       <ProjectReference Include="..\Step01\Step01.csproj" />
     </ItemGroup>
 

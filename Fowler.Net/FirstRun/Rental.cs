@@ -11,10 +11,15 @@
             this.DaysRented = daysRented;
         }
 
-        public double GetCharge()
+        public decimal GetCharge()
             => this.Movie.GetCharge(DaysRented);
 
         public int GetFrequentRenterPoints()
             => this.Movie.GetFrequentRenterPoints(DaysRented);
+
+        internal void ContributeTo(StatementBuilder builder)
+        {
+            //builder.
+        }
     }
 }

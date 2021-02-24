@@ -20,7 +20,7 @@ namespace FirstRun
              _price = GetPrice(priceCode);
         }
 
-        public double GetCharge(int daysRented)
+        public decimal GetCharge(int daysRented)
             => _price.GetCharge(daysRented);
 
         public int GetFrequentRenterPoints(int daysRented)
