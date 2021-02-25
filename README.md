@@ -130,12 +130,19 @@ Add `AddTotalCharge` and `AddFreuqentRenterPoints`
 Hide internal methods
 
 After this is complete it's time to add builder for `Movie`. 
+Split the Statement classes to independent files
 
 ## ....
 
 That's probably the last step before introducing breaking changes. The builder could be improved to implement the Joshua Bloch's version, but it is not necessary. 
 
 It would be good at this stage to look at advantages and disadvantages. The design is more complex, but now changes might be easier and new formats can be injected without any changes. Consider SOLID, code smells. 
+
+## Going beyond simply refactoring 
+
+So far we have extended the functionality as requested and improved the design, perhaps even too much. But the current solution allows us to look at how the design could be improved if we didn't have to worry about existing clients, or if we were starting from the beginning. 
+
+
 
 
 ## Quotes
