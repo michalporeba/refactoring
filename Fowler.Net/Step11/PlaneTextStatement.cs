@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Step10
+namespace Step11
 {
     public class PlainTextStatement : Customer.Statement
     {
@@ -10,7 +10,7 @@ namespace Step10
         public PlainTextStatement(Customer customer) => _customer = customer;
         
         public void AddName(string name)
-            => _sb.Append($"Rental Record for {_customer.Name}\n");
+            => _sb.Append($"Rental Record for {name}\n");
 
         public void AddRental(Rental rental)
             => _sb.Append(rental.ToStatement(new RentalStatement()));
