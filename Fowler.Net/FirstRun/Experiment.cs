@@ -10,6 +10,7 @@ namespace FirstRun
             public interface StatementBuilder
             {
                 void AddName(string name);
+                void AddRental(Rental rental);
             }
             
             private readonly string _name;
@@ -20,6 +21,7 @@ namespace FirstRun
             public void ToStatement(StatementBuilder builder)
             {
                 builder.AddName(_name);
+                _rentals.ForEach(rental => builder.AddRental(rental));
             }
         }
 
@@ -28,6 +30,7 @@ namespace FirstRun
             public interface StatementBuilder
             {
                 void AddRental(int days);
+                string Build();
             }
             
             private Movie _movie;
@@ -36,6 +39,12 @@ namespace FirstRun
             {
                 _days = days;
                 _movie = movie;
+            }
+
+            public string ToStatement(StatementBuilder builder)
+            {
+                builder.AddRental(_days);
+                return builder.Build();
             }
         }
 
@@ -49,7 +58,20 @@ namespace FirstRun
         {
             private StringBuilder sb = new StringBuilder();
             public void AddName(string name) => sb.AppendLine(name);
+            public void AddRental(Rental rental) 
+                => sb.Append(rental.ToStatement(new RentalBuilder()));
+
             public string Build() => sb.ToString();
+            
+            private class RentalBuilder : Rental.StatementBuilder
+            {
+                private StringBuilder sb = new StringBuilder();
+
+                public void AddRental(int days)
+                    => sb.AppendLine(days.ToString());
+
+                public string Build() => sb.ToString();
+            }
         }
         public string Do()
         {
