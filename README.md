@@ -109,7 +109,19 @@ This is good if we consider changes to pricing model, but not for different outp
 
 It becomes worse - too much extraction of data
 
+### Step 10 - builder 
 
+replace create with build method. use customer field value provided by constructor in the builder for now. it's wrong, but helps as a refactoring step
+
+testing line
+```
+Assert.That(customer?.GetStatement(new HtmlStatement(customer)), Is.EqualTo(expected));
+```
+shows that's something not quite right with this solution.
+
+Move `Statement` interface to Customer 
+Move `StringBuilder` to field
+Add `AddName'
 
 ## Quotes
 

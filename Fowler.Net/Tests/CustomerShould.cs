@@ -1,6 +1,6 @@
 using System;
 using NUnit.Framework;
-using Step09;
+using Step10;
 
 namespace Tests
 {
@@ -40,7 +40,7 @@ namespace Tests
         {
             var customer = (Customer)Activator.CreateInstance(customerType);
             var expected = ((ITestCustomerWithOutcome) customer)?.ExpectedHtml;
-            Assert.That(customer?.GetStatement(new HtmlStatement()), Is.EqualTo(expected));
+            Assert.That(customer?.GetStatement(new HtmlStatement(customer)), Is.EqualTo(expected));
         }
 
         private class TestCustomerA : Customer
