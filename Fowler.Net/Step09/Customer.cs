@@ -6,7 +6,7 @@ namespace Step09
 {
     public class Customer
     {
-        private readonly List<Rental> _rentals = new List<Rental>();
+        internal List<Rental> Rentals { get; } = new List<Rental>();
 
         public string Name { get; } 
 
@@ -16,36 +16,18 @@ namespace Step09
         }
 
         public void AddRental(Rental rental)
-            => _rentals.Add(rental);
+            => Rentals.Add(rental);
 
-        public string GetStatement()
-        {
-            var sb = new StringBuilder($"Rental Record for {Name}\n");
+        public string GetStatement() 
+            => GetStatement(new PlainTextStatement());
 
-            _rentals.ForEach(rental => sb.Append($"\t{rental.Movie.Title}\t{rental.GetCharge():£0.00}\n"));
+        public string GetStatement(Statement statement)
+            => statement.Create(this);
 
-            sb.Append($"Amount owed is {GetTotalCharge():£0.00}\n");
-            sb.Append($"You earned {GetFrequentRenterPoints()} frequent renter points\n");
-            
-            return sb.ToString();
-        }
-        
-        public string GetHtmlStatement()
-        {
-            var sb = new StringBuilder($"<p>Rental Record for {Name}</p>");
+        internal int GetFrequentRenterPoints()
+            => Rentals.Sum(x => x.GetFrequentRenterPoints());
 
-            _rentals.ForEach(rental => sb.Append($"<p>{rental.Movie.Title} for {rental.GetCharge():£0.00}</p>"));
-
-            sb.Append($"<p>Amount owed is {GetTotalCharge():£0.00}</p>");
-            sb.Append($"<p>You earned {GetFrequentRenterPoints()} frequent renter points</p>");
-            
-            return sb.ToString();
-        }
-
-        private int GetFrequentRenterPoints()
-            => _rentals.Sum(x => x.GetFrequentRenterPoints());
-
-        private decimal GetTotalCharge()
-            => _rentals.Sum(x => x.GetCharge());
+        internal decimal GetTotalCharge()
+            => Rentals.Sum(x => x.GetCharge());
     }
 }

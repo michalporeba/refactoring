@@ -104,6 +104,13 @@ public string GetHtmlStatement()
 This is good if we consider changes to pricing model, but not for different outputs. 
 
 
+
+### Step 09 - move methods to strategy pattern 
+
+It becomes worse - too much extraction of data
+
+
+
 ## Quotes
 
 Any fool can write code tha a computer can understand. Good programmers write code that humans can understand. 
