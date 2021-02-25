@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Step10
 {
@@ -9,6 +8,7 @@ namespace Step10
         public interface Statement
         {
             void AddName(string name);
+            void AddRental(Rental rental);
             string Build();
         } 
         
@@ -30,6 +30,7 @@ namespace Step10
         public string GetStatement(Statement statement)
         {
             statement.AddName(Name);
+            Rentals.ForEach(rental => statement.AddRental(rental));
             return statement.Build();
         }
 

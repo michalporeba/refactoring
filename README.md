@@ -121,7 +121,9 @@ shows that's something not quite right with this solution.
 
 Move `Statement` interface to Customer 
 Move `StringBuilder` to field
-Add `AddName'
+Add `AddName`
+
+Add `AddRental` with `Rental.Statement` and `void AddMovie(string title, decimal charge);`
 
 ## Quotes
 

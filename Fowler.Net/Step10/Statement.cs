@@ -11,15 +11,26 @@ namespace Step10
         
         public void AddName(string name)
             => _sb.Append($"Rental Record for {_customer.Name}\n");
+
+        public void AddRental(Rental rental)
+            => _sb.Append(rental.ToStatement(new RentalStatement()));
         
         public string Build()
         {
-            _customer.Rentals.ForEach(rental => _sb.Append($"\t{rental.Movie.Title}\t{rental.GetCharge():£0.00}\n"));
-
             _sb.Append($"Amount owed is {_customer.GetTotalCharge():£0.00}\n");
             _sb.Append($"You earned {_customer.GetFrequentRenterPoints()} frequent renter points\n");
             
             return _sb.ToString();
+        }
+
+        private class RentalStatement : Rental.Statement
+        {
+            private readonly StringBuilder _sb = new StringBuilder();
+
+            public void AddMovie(string title, decimal charge)
+                => _sb.Append($"\t{title}\t{charge:£0.00}\n");
+
+            public string Build() => _sb.ToString();
         }
     }
 
@@ -33,14 +44,25 @@ namespace Step10
         public void AddName(string name) 
             => _sb.Append($"<p>Rental Record for {name}</p>"); 
         
+        public void AddRental(Rental rental)
+            => _sb.Append(rental.ToStatement(new RentalStatement()));
+
         public string Build()
         {
-            _customer.Rentals.ForEach(rental => _sb.Append($"<p>{rental.Movie.Title} for {rental.GetCharge():£0.00}</p>"));
-
             _sb.Append($"<p>Amount owed is {_customer.GetTotalCharge():£0.00}</p>");
             _sb.Append($"<p>You earned {_customer.GetFrequentRenterPoints()} frequent renter points</p>");
             
             return _sb.ToString();
+        }
+        
+        private class RentalStatement : Rental.Statement
+        {
+            private readonly StringBuilder _sb = new StringBuilder();
+
+            public void AddMovie(string title, decimal charge)
+                => _sb.Append($"<p>{title} for {charge:£0.00}</p>");
+
+            public string Build() => _sb.ToString();
         }
     }
 }

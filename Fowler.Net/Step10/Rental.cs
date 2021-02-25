@@ -2,6 +2,12 @@
 {
     public class Rental
     {
+        public interface Statement
+        {
+            void AddMovie(string title, decimal charge);
+            string Build();
+        }
+        
         public Movie Movie { get; }
         public int DaysRented { get; }
 
@@ -9,6 +15,12 @@
         {
             Movie = movie;
             DaysRented = daysRented;
+        }
+
+        public string ToStatement(Statement builder)
+        {
+            builder.AddMovie(Movie.Title, GetCharge());
+            return builder.Build();
         }
 
         public decimal GetCharge()
