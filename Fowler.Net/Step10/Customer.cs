@@ -9,10 +9,12 @@ namespace Step10
         {
             void AddName(string name);
             void AddRental(Rental rental);
+            void AddTotalCharge(decimal totalCharge);
+            void AddFrequentRenterPoints(int points);
             string Build();
         } 
         
-        internal List<Rental> Rentals { get; } = new List<Rental>();
+        private List<Rental> _rentals = new List<Rental>();
 
         public string Name { get; } 
 
@@ -22,7 +24,7 @@ namespace Step10
         }
 
         public void AddRental(Rental rental)
-            => Rentals.Add(rental);
+            => _rentals.Add(rental);
 
         public string GetStatement() 
             => GetStatement(new PlainTextStatement(this));
@@ -30,14 +32,16 @@ namespace Step10
         public string GetStatement(Statement statement)
         {
             statement.AddName(Name);
-            Rentals.ForEach(rental => statement.AddRental(rental));
+            _rentals.ForEach(rental => statement.AddRental(rental));
+            statement.AddTotalCharge(GetTotalCharge());
+            statement.AddFrequentRenterPoints(GetFrequentRenterPoints());
             return statement.Build();
         }
 
-        internal int GetFrequentRenterPoints()
-            => Rentals.Sum(x => x.GetFrequentRenterPoints());
+        private int GetFrequentRenterPoints()
+            => _rentals.Sum(x => x.GetFrequentRenterPoints());
 
-        internal decimal GetTotalCharge()
-            => Rentals.Sum(x => x.GetCharge());
+        private decimal GetTotalCharge()
+            => _rentals.Sum(x => x.GetCharge());
     }
 }

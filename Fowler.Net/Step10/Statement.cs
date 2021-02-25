@@ -14,15 +14,15 @@ namespace Step10
 
         public void AddRental(Rental rental)
             => _sb.Append(rental.ToStatement(new RentalStatement()));
-        
-        public string Build()
-        {
-            _sb.Append($"Amount owed is {_customer.GetTotalCharge():£0.00}\n");
-            _sb.Append($"You earned {_customer.GetFrequentRenterPoints()} frequent renter points\n");
-            
-            return _sb.ToString();
-        }
 
+        public void AddTotalCharge(decimal totalCharge)
+            => _sb.Append($"Amount owed is {totalCharge:£0.00}\n");
+
+        public void AddFrequentRenterPoints(int points)
+            => _sb.Append($"You earned {points} frequent renter points\n");
+
+        public string Build() => _sb.ToString();
+        
         private class RentalStatement : Rental.Statement
         {
             private readonly StringBuilder _sb = new StringBuilder();
@@ -47,13 +47,13 @@ namespace Step10
         public void AddRental(Rental rental)
             => _sb.Append(rental.ToStatement(new RentalStatement()));
 
-        public string Build()
-        {
-            _sb.Append($"<p>Amount owed is {_customer.GetTotalCharge():£0.00}</p>");
-            _sb.Append($"<p>You earned {_customer.GetFrequentRenterPoints()} frequent renter points</p>");
-            
-            return _sb.ToString();
-        }
+        public void AddTotalCharge(decimal totalCharge)
+            => _sb.Append($"<p>Amount owed is {totalCharge:£0.00}</p>");
+
+        public void AddFrequentRenterPoints(int points)
+            => _sb.Append($"<p>You earned {points} frequent renter points</p>");
+
+        public string Build() => _sb.ToString();
         
         private class RentalStatement : Rental.Statement
         {

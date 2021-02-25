@@ -124,6 +124,11 @@ Move `StringBuilder` to field
 Add `AddName`
 
 Add `AddRental` with `Rental.Statement` and `void AddMovie(string title, decimal charge);`
+Hide `Rentals` -> `_rentals`
+
+Add `AddTotalCharge` and `AddFreuqentRenterPoints`
+Hide internal methods
+
 
 ## Quotes
 
