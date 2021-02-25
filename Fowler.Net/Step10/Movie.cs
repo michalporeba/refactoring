@@ -11,6 +11,13 @@ namespace Step10
             NewRelease
         }
 
+        internal interface Statement
+        {
+            void AddTitle(string title);
+            void AddCharge(decimal charge);
+            string Build();
+        }
+
         public string Title { get; }
 
         private Price _price;
@@ -25,11 +32,18 @@ namespace Step10
             Title = title;
             PriceCode = priceCode;
         }
+
+        internal string ToStatement(Statement builder, int daysRented)
+        {
+            builder.AddTitle(Title);
+            builder.AddCharge(GetCharge(daysRented));
+            return builder.Build();
+        }
         
-        public decimal GetCharge(int daysRented)
+        internal decimal GetCharge(int daysRented)
             => _price.GetCharge(daysRented);
 
-        public int GetFrequentRenterPoints(int daysRented)
+        internal int GetFrequentRenterPoints(int daysRented)
             => _price.GetFrequentRenterPoints(daysRented);
 
         private static Price PriceFor(PriceCodes priceCode)

@@ -129,6 +129,14 @@ Hide `Rentals` -> `_rentals`
 Add `AddTotalCharge` and `AddFreuqentRenterPoints`
 Hide internal methods
 
+After this is complete it's time to add builder for `Movie`. 
+
+## ....
+
+That's probably the last step before introducing breaking changes. The builder could be improved to implement the Joshua Bloch's version, but it is not necessary. 
+
+It would be good at this stage to look at advantages and disadvantages. The design is more complex, but now changes might be easier and new formats can be injected without any changes. Consider SOLID, code smells. 
+
 
 ## Quotes
 

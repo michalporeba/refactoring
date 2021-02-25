@@ -27,8 +27,21 @@ namespace Step10
         {
             private readonly StringBuilder _sb = new StringBuilder();
 
-            public void AddMovie(string title, decimal charge)
-                => _sb.Append($"\t{title}\t{charge:£0.00}\n");
+            public void AddMovie(Movie movie, int daysRented)
+                => _sb.Append(movie.ToStatement(new MovieStatement(), daysRented));
+
+            public string Build() => _sb.ToString();
+        }
+        
+        private class MovieStatement : Movie.Statement
+        {
+            private readonly StringBuilder _sb = new StringBuilder();
+
+            public void AddTitle(string title)
+                => _sb.Append($"\t{title}");
+
+            public void AddCharge(decimal charge)
+                => _sb.Append($"\t{charge:£0.00}\n");
 
             public string Build() => _sb.ToString();
         }
@@ -59,8 +72,21 @@ namespace Step10
         {
             private readonly StringBuilder _sb = new StringBuilder();
 
-            public void AddMovie(string title, decimal charge)
-                => _sb.Append($"<p>{title} for {charge:£0.00}</p>");
+            public void AddMovie(Movie movie, int daysRented)
+                => _sb.Append(movie.ToStatement(new MovieStatement(), daysRented));
+
+            public string Build() => _sb.ToString();
+        }
+
+        private class MovieStatement : Movie.Statement
+        {
+            private readonly StringBuilder _sb = new StringBuilder();
+
+            public void AddTitle(string title)
+                => _sb.Append($"<p>{title}");
+
+            public void AddCharge(decimal charge)
+                => _sb.Append($" for {charge:£0.00}</p>");
 
             public string Build() => _sb.ToString();
         }

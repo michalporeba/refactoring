@@ -4,7 +4,7 @@
     {
         public interface Statement
         {
-            void AddMovie(string title, decimal charge);
+            void AddMovie(Movie movie, int daysRented);
             string Build();
         }
         
@@ -17,16 +17,16 @@
             DaysRented = daysRented;
         }
 
-        public string ToStatement(Statement builder)
+        internal string ToStatement(Statement builder)
         {
-            builder.AddMovie(Movie.Title, GetCharge());
+            builder.AddMovie(Movie, DaysRented);
             return builder.Build();
         }
 
-        public decimal GetCharge()
+        internal decimal GetCharge()
             => Movie.GetCharge(DaysRented);
 
-        public int GetFrequentRenterPoints()
+        internal int GetFrequentRenterPoints()
             => Movie.GetFrequentRenterPoints(DaysRented);
     }
 }
